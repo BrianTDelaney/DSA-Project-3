@@ -1,4 +1,4 @@
 from graph import Graph
 
-games = Graph()
-print(games.compareNodes(games.nameMap["The Elder Scrolls V: Skyrim"], games.nameMap["Fallout 4"]))
+games = Graph() # THIS CODE WILL TAKE A MINUTE TO RUN, ALSO STILL ONLY LOOKS AT TOP 1000 GAMES
+games.printAdjacent("Half-Life")

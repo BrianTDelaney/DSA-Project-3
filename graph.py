@@ -1,5 +1,6 @@
 import requests
 import json
+from queue import Queue
 
 
 class Node:
@@ -69,3 +70,19 @@ class Graph:
 
     def serialize_graph(self):
         return json.dumps(self.adjList)
+
+    def bfs(self):
+        source = next(iter(self.adjList))
+        visited = {source}
+        q = Queue()
+        q.put(source)
+        print("BFS: ")
+        while not q.empty():
+            u = q.get()
+            print(u)
+            neighbors = self.adjList[u]
+            for v in neighbors:
+                if v not in visited:
+                    visited.add(v)
+                    q.put(v)
+

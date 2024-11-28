@@ -66,3 +66,6 @@ class Graph:
     def printAdjacent(self, name):
         for game in self.adjList[name]:
             print(game)
+
+    def serialize_graph(self):
+        return json.dumps(self.adjList)

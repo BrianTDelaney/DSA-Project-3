@@ -6,53 +6,50 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-<div class="recommenderpage">
-    <h1 align="center">Game Recommender</h1>
-    <a href="http://127.0.0.1:5000/">
+<h1>Game Recommender</h1>
+<a href="http://127.0.0.1:5000/">
     Click for Ranker
-    </a>
+</a>
 
-    <div class="recommend_box">
-        <h2>Hollow Knight</h2>
-        <h4>Similarity Score: 80</h4>
-        <hr>
-        <h4>Rating: </h4>
-        <p>97%</p>
-        <br>
-        <h4>Developer: </h4>
-        <p>Team Cherry</p>
-        <br>
-        <h4>Year: </h4>
-        <p>2017</p>
-        <br>
-        <h4>Genre: </h4>
-        <p>Metroidvania, Action-adventure</p>
-        <br>
-        <br>
-        <p>Hollow Knight is a 2D side-scrolling Metroidvania. The player controls a silent insectoid protagonist
+<div class="recommend_box">
+    <h2>Hollow Knight</h2>
+    <h4>Similarity Score: 80</h4>
+    <hr>
+    <h4>Rating: </h4>
+    <p>97%</p>
+    <br>
+    <h4>Developer: </h4>
+    <p>Team Cherry</p>
+    <br>
+    <h4>Year: </h4>
+    <p>2017</p>
+    <br>
+    <h4>Genre: </h4>
+    <p>Metroidvania, Action-adventure</p>
+    <br>
+    <br>
+    <p>Hollow Knight is a 2D side-scrolling Metroidvania. The player controls a silent insectoid protagonist
         called "the Knight" who explores an underground fallen kingdom called Hallownest.
         The Knight can strike enemies with a sword-like weapon called a Nail and can learn spells that
         allow for long-range attacks.</p>
-    </div>
-    <div class="left_button" id="lbutton">
-    </div>
-    <div class="right_button" id="rbutton">
-    </div>
-    <script>
-        const lbutton = document.getElementById("lbutton")
-        const rbutton = document.getElementById("rbutton")
-        function OnClick(e) {
-            if (e.target.id === "lbutton") {
-                alert("moving back one recommendation")
-            }
-            else {
-                alert("moving up one recommendation")
-            }
-        }
-        lbutton.addEventListener("click", OnClick)
-        rbutton.addEventListener("click", OnClick)
-    </script>
 </div>
-
+<div class="left_button" id="lbutton">
+</div>
+<div class="right_button" id="rbutton">
+</div>
+<script>
+    const lbutton = document.getElementById("lbutton")
+    const rbutton = document.getElementById("rbutton")
+    function OnClick(e) {
+        if (e.target.id === "lbutton") {
+            alert("moving back one recommendation")
+        }
+        else {
+            alert("moving up one recommendation")
+        }
+    }
+    lbutton.addEventListener("click", OnClick)
+    rbutton.addEventListener("click", OnClick)
+</script>
 </body>
 </html>

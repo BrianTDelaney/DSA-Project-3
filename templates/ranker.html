@@ -6,35 +6,59 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-<div class="rankerpage">
-    <h1 align="center">Game Ranker</h1>
-    <a align="center" href="http://127.0.0.1:5000/recommender">
-        Click for Recommender
-    </a>
-    <br>
-    <br>
-    <form autocomplete="off">
-        <div class="search">
-            <label for="gameinput"></label>
-            <input type="text" placeholder="Search for games..." id="gameinput" name="gameinput">
-            </label>
-        </div>
-    </form>
-
-    <div class="rankbox">
-        <table>
-        <tr>
-            <td>1.</td>
-            <td>[]</td>
-            <td>Game</td>
-        </tr>
-            <!--<tr>
-                <td>2.</td>
-                <td>[]</td>
-                <td>Game 2</td>
-            </tr>-->
-    </table>
-    </div>
+<h1>Game Ranker</h1>
+<a href="http://127.0.0.1:5000/recommender">
+    Click for Recommender
+</a>
+<br>
+<div class="resetbutton" id="reset">
+    <button type="button" onclick="Reset()">Reset</button>
 </div>
+<br>
+<form autocomplete="off">
+    <div class="search">
+        <label for="gameinput"></label>
+        <input type="text" placeholder="Search for games..." id="gameinput" onkeydown="return AddtoList(event)">
+    </div>
+</form>
+    <table>
+        <tbody id="gamestable">
+
+        </tbody>
+    </table>
+    <script>
+
+        function MakeTable() { /* Code adapted from https://www.youtube.com/watch?v=yk2DibLBhzc */
+            let table = document.querySelector("#gamestable")
+            const row = document.createElement("tr")
+            row.innerHTML = ``
+            for (let i = 0; i < games.length; i++) {
+                row.innerHTML = `<tr>
+                    <td>${i + 1}</td>
+                    <td>${games[i]}</td>
+                </tr>`
+                table.appendChild(row)
+            }
+        }
+
+        function Reset() {
+            alert("clearing games list")
+            games.length = 0
+            row.innerHTML = ``
+            MakeTable()
+        }
+
+        const games = []
+        function AddtoList(e) {
+            if (e.keyCode === 13) {
+                if (e.target.value !== "") {
+                    games.push(e.target.value)
+                    MakeTable()
+                    e.target.value = ""
+                }
+                return false
+            }
+        }
+    </script>
 </body>
 </html>

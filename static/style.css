@@ -1,6 +1,10 @@
 body {
   padding: 0;
   margin: 0;
+  height: 100vh;
+  display: table;
+  flex-direction: column;
+  background: linear-gradient(#22203c, #090a12);
 }
 a {
   text-decoration: none;
@@ -10,20 +14,9 @@ a {
   color: #f0bbc2;
   font-family: helvetica, serif;
 }
-.rankerpage {
-  height: 100vh;
-  display: table;
-  flex-direction: column;
-  background: linear-gradient(#22203c, #090a12);
-}
-.recommenderpage {
-  height: 100vh;
-  display: table;
-  flex-direction: column;
-  background: linear-gradient(#22203c, #090a12);
-}
 h1 {
   color: #ffffff;
+  text-align: center;
   font-family: helvetica, sans-serif;
   font-size: 30px;
 }
@@ -50,23 +43,14 @@ p {
   font-size: 20px;
   border-radius: 20px;
 }
-.rankbox {
+table {
   margin: 0 auto;
   display: table;
-  padding: 6px;
-  background-color: #ffffff;
+  padding: 15px;
   width: 48%;
   table-layout: fixed;
   border-spacing: 0 0;
-}
-table {
-  margin: 0 auto;
-  display: block;
-  padding: 15px;
-  width: 100%;
-  table-layout: fixed;
-  border-spacing: 0 0;
-  color: #090a12;
+  color: #ffffff;
   font-family: helvetica, sans-serif;
   font-size: 20px;
 }
@@ -137,4 +121,9 @@ table {
     border-top: 5px solid #ffffff;
     border-left: 5px solid #ffffff;
   }
+}
+.resetbutton {
+  margin: 0 auto;
+  display: table;
+  text-align: center;
 }

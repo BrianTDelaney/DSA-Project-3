@@ -6,10 +6,12 @@ from queue import Queue
 class Node:
     name = ""
     traits = []
+    description = ""
 
-    def __init__(self, n, t):
+    def __init__(self, n, t, d):
         self.name = n
         self.traits = t
+        self.description = d
 
 
 class Graph:
@@ -19,9 +21,11 @@ class Graph:
     def __init__(self):
         for pageNumber in range(0, 1):
             print(pageNumber)
-            response = requests.get("https://steamspy.com/api.php?request=all&page=" + str(pageNumber))
+            # response = requests.get("https://steamspy.com/api.php?request=all&page=" + str(pageNumber))
+            response = requests.get("https://steamspy.com/api.php?request=top100forever")
             for game in response.json().values():  # Iterates through data
                 traitList = []
+                description = ""
                 for trait in game.items():
                     if trait[0] != "name":
                         traitList.append(trait[1])  # Makes a list containing all relevant data for edge creation
@@ -29,10 +33,14 @@ class Graph:
                         link = "https://steamspy.com/api.php?request=appdetails&appid=" + str(trait[1])
                         response2 = requests.get(link)
                         traitList.append(response2.json()["tags"])
+                        link = "https://store.steampowered.com/api/appdetails?appids=" + str(trait[1])
+                        response3 = requests.get(link)
+                        description = response3.json()[str(trait[1])]["data"]["about_the_game"]
 
-                self.nameMap[game["name"]] = Node(game["name"], traitList)
+                self.nameMap[game["name"]] = Node(game["name"], traitList, description)
                 self.adjList[game["name"]] = []
         self.initializeMatrix()
+        print("DONE")
 
     def initializeMatrix(
             self):  # [NOT FINISHED] This function will be used to initialize the edges in the adjacency matrix

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ranker</title>
+    <title>Good Games Guru</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-<h1>Game Ranker</h1>
+<h1>Good Games Guru</h1>
 <a href="http://127.0.0.1:5000/recommender">
     Click for Recommender
 </a>
@@ -27,37 +27,50 @@
         </tbody>
     </table>
     <script>
+        let resetrequested = false
 
         function MakeTable() { /* Code adapted from https://www.youtube.com/watch?v=yk2DibLBhzc */
             let table = document.querySelector("#gamestable")
             const row = document.createElement("tr")
-            row.innerHTML = ``
-            for (let i = 0; i < games.length; i++) {
-                row.innerHTML = `<tr>
-                    <td>${i + 1}</td>
-                    <td>${games[i]}</td>
-                </tr>`
-                table.appendChild(row)
+            if (!resetrequested) {
+                for (let i = 0; i < games.length; i++) {
+                    row.innerHTML = `<tr>
+                        <td>${games[i]}</td>
+                    </tr>`
+                    table.appendChild(row)
+                }
+            }
+            else {
+                table.textContent = ""
+                resetrequested = false
             }
         }
 
         function Reset() {
-            alert("clearing games list")
-            games.length = 0
-            row.innerHTML = ``
+            resetrequested = true
             MakeTable()
+            games.length = 0
         }
 
         const games = []
         function AddtoList(e) {
             if (e.keyCode === 13) {
                 if (e.target.value !== "") {
-                    games.push(e.target.value)
-                    MakeTable()
-                    e.target.value = ""
+                    if (OnSteam()) {
+                        games.push(e.target.value)
+                        MakeTable()
+                        e.target.value = ""
+                    }
+                    else {
+                        alert(e.target.value + " is not in our database")
+                        e.target.value = ""
+                    }
                 }
                 return false
             }
+        }
+        function OnSteam() {
+            return true
         }
     </script>
 </body>

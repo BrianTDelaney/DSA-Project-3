@@ -5,7 +5,7 @@
     <title>Recommender</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
-<body> <!-- for local storage integration uncomment onload="LoadGames()" and the commented js-->
+<body onload="Reset()">
 <div class="nav">
     <a href="http://127.0.0.1:5000/home">Home</a>
     <a class="onpage" href="http://127.0.0.1:5000/recommender">Recommender</a>
@@ -27,12 +27,10 @@
     <button type="button" onclick="Reset()">Reset</button>
 </div>
 <br>
-<form autocomplete="off">
-    <div class="search">
-        <label for="gameinput"></label>
-        <input type="text" placeholder="Search for games..." id="gameinput" onkeydown="return AddtoList(event)">
-    </div>
-</form>
+<div class="search">
+    <label for="gameinput"></label>
+    <input type="text" placeholder="Search for games..." id="gameinput" onkeydown="return AddtoList(event)">
+</div>
     <table>
         <tbody id="gamestable">
 
@@ -40,13 +38,6 @@
     </table>
     <script>
         let games = []
-
-        function LoadGames() { //Code adapted from https://www.youtube.com/watch?v=2hJ1rTANVnk
-            if (localStorage.getItem("gameslist") != null) {
-                games = JSON.parse(localStorage.getItem("gameslist"))
-                MakeTable()
-            }
-        }
 
         function SaveGames(game) { //Code adapted from https://www.youtube.com/watch?v=2hJ1rTANVnk
             if (localStorage.getItem("gameslist") == null) {
@@ -82,7 +73,7 @@
             resetrequested = true
             MakeTable()
             games.length = 0
-            /*localStorage.clear()*/
+            localStorage.clear()
             ButtonVis()
         }
 
@@ -93,7 +84,6 @@
                         games.push(e.target.value)
                         SaveGames(e.target.value)
                         MakeTable()
-                        /*SaveGames(e.target.value)*/
                         e.target.value = ""
                         ButtonVis()
                     }

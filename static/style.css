@@ -218,4 +218,21 @@ table {
   display: table;
   text-align: center;
 }
+.topgames {
+  margin: auto;
+  display: table;
+  padding: 6px;
+  position: relative;
+  top: 15%;
+  background-color: #87717d;
+  border: 7px solid #f0bbc2;
+  border-radius: 20px;
+  width: 50%;
+  table-layout: fixed;
+  border-spacing: 0 0;
+  color: #ffffff;
+  font-family: helvetica, sans-serif;
+  font-size: 20px;
+  text-align: center;
+}
 

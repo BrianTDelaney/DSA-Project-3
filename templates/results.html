@@ -39,11 +39,13 @@
 <!--        called "the Knight" who explores an underground fallen kingdom called Hallownest.-->
 <!--        The Knight can strike enemies with a sword-like weapon called a Nail and can learn spells that-->
 <!--        allow for long-range attacks.</p>-->
-    <p> {{data}}
 </div>
 <div class="left_button" id="lbutton">
 </div>
 <div class="right_button" id="rbutton">
+</div>
+<div class="pagenum">
+    <p id="page"></p>
 </div>
 <script>
     const array = ["game1", "game2", "game3"]
@@ -66,6 +68,7 @@
     }
     function DisplayRecs() {
         document.getElementById("gamerec").innerHTML = ""
+        document.getElementById("page").innerHTML = (index + 1) + " / " + array.length
         document.getElementById("gamerec").innerHTML += array[index]
     }
     function ArrowVis() {

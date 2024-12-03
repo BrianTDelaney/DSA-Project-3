@@ -6,21 +6,111 @@ body {
   flex-direction: column;
   background: linear-gradient(#22203c, #090a12);
 }
-a {
+.nav {
+  overflow: hidden;
+  width: 100vw;
+  background: #090a12;
+}
+.nav a {
   text-decoration: none;
+  float: left;
+  display: block;
+  padding: 15px;
+  font-family: helvetica, sans-serif;
+  font-size: 18px;
+  color: #ffffff;
+
+  &:hover {
+    background: #f0bbc2;
+  }
+}
+.nav a.onpage {
+ background: #22203c;
+}
+.recbutton a {
+  text-decoration: none;
+  font-size: 25px;
+  padding: 10px 30px;
+  color: #ffffff;
+  background: #f0bbc2;
+  border-radius: 20px;
+  font-family: helvetica, sans-serif;
+  cursor: pointer;
   position: absolute;
-  top: 0;
+  top: 50vh;
+  left: 30vw;
+
+  &:hover{
+    transition-duration: 0.3s;
+    background: #87717d;
+  }
+}
+.topbutton a {
+  text-decoration: none;
+  font-size: 25px;
+  padding: 10px 30px;
+  color: #ffffff;
+  background: #f0bbc2;
+  border-radius: 20px;
+  font-family: helvetica, sans-serif;
+  cursor: pointer;
+  position: absolute;
+  top: 50vh;
+  left: 56vw;
+
+  &:hover{
+    transition-duration: 0.3s;
+    background: #87717d;
+  }
+}
+.resultbutton a {
+  text-decoration: none;
+  font-size: 18px;
   padding: 10px;
-  color: #f0bbc2;
-  font-family: helvetica, serif;
+  color: #ffffff;
+  background: #f0bbc2;
+  border-radius: 20px;
+  font-family: helvetica, sans-serif;
+  cursor: pointer;
+  position: absolute;
+  top: 27vh;
+  left: 41vw;
+
+  &:hover{
+    transition-duration: 0.3s;
+    background: #87717d;
+  }
+}
+.homebutton a {
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  color: #ffffff;
+  background: #f0bbc2;
+  border-radius: 20px;
+  font-family: helvetica, sans-serif;
+  cursor: pointer;
+  position: absolute;
+  top: 12vh;
+  left: 43vw;
+
+  &:hover{
+    transition-duration: 0.3s;
+    background: #87717d;
+  }
 }
 h1 {
   color: #ffffff;
   text-align: center;
   font-family: helvetica, sans-serif;
-  font-size: 30px;
+  font-size: 50px;
 }
 h2 {
+  color: #ffffff;
+  font-family: helvetica, sans-serif;
+}
+h3 {
+  text-align: center;
   color: #ffffff;
   font-family: helvetica, sans-serif;
 }
@@ -59,6 +149,7 @@ table {
   display: table;
   padding: 6px;
   position: relative;
+  top: 15%;
   background-color: #87717d;
   border: 7px solid #f0bbc2;
   border-radius: 20px;
@@ -127,3 +218,4 @@ table {
   display: table;
   text-align: center;
 }
+

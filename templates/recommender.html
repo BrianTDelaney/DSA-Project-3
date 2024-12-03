@@ -5,51 +5,118 @@
     <title>Recommender</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
-<body>
-<h1>Game Recommender</h1>
-<a href="http://127.0.0.1:5000/">
-    Click for Ranker
-</a>
+<body> <!-- for local storage integration uncomment onload="LoadGames()" and the commented js-->
+<div class="nav">
+    <a href="http://127.0.0.1:5000/home">Home</a>
+    <a class="onpage" href="http://127.0.0.1:5000/recommender">Recommender</a>
+    <a href="http://127.0.0.1:5000/topgames">Top Games</a>
+    <a href="http://127.0.0.1:5000/results">Results</a>
+</div>
 
-<div class="recommend_box">
-    <h2>Hollow Knight</h2>
-    <h4>Similarity Score: 80</h4>
-    <hr>
-    <h4>Rating: </h4>
-    <p>97%</p>
-    <br>
-    <h4>Developer: </h4>
-    <p>Team Cherry</p>
-    <br>
-    <h4>Year: </h4>
-    <p>2017</p>
-    <br>
-    <h4>Genre: </h4>
-    <p>Metroidvania, Action-adventure</p>
-    <br>
-    <br>
-    <p>Hollow Knight is a 2D side-scrolling Metroidvania. The player controls a silent insectoid protagonist
-        called "the Knight" who explores an underground fallen kingdom called Hallownest.
-        The Knight can strike enemies with a sword-like weapon called a Nail and can learn spells that
-        allow for long-range attacks.</p>
+<h3>Search our database for at least three games that you like and we will find</h3>
+    <h3>recommendations based on your preferences</h3>
+<br>
+<br>
+<br>
+<div class="resultbutton" id="result">
+    <a href="http://127.0.0.1:5000/results">
+        Click for recommendations
+    </a>
 </div>
-<div class="left_button" id="lbutton">
+<div class="resetbutton" id="reset">
+    <button type="button" onclick="Reset()">Reset</button>
 </div>
-<div class="right_button" id="rbutton">
-</div>
-<script>
-    const lbutton = document.getElementById("lbutton")
-    const rbutton = document.getElementById("rbutton")
-    function OnClick(e) {
-        if (e.target.id === "lbutton") {
-            alert("moving back one recommendation")
+<br>
+<form autocomplete="off">
+    <div class="search">
+        <label for="gameinput"></label>
+        <input type="text" placeholder="Search for games..." id="gameinput" onkeydown="return AddtoList(event)">
+    </div>
+</form>
+    <table>
+        <tbody id="gamestable">
+
+        </tbody>
+    </table>
+    <script>
+        let games = []
+
+        /*function LoadGames() { Code adapted from https://www.youtube.com/watch?v=2hJ1rTANVnk
+            if (localStorage.getItem("gameslist") != null) {
+                games = JSON.parse(localStorage.getItem("gameslist"))
+                MakeTable()
+            }
         }
-        else {
-            alert("moving up one recommendation")
+
+        function SaveGames(game) { Code adapted from https://www.youtube.com/watch?v=2hJ1rTANVnk
+            if (localStorage.getItem("gameslist") == null) {
+                localStorage.setItem("gameslist", '[]')
+            }
+            var currentlist = JSON.parse(localStorage.getItem("gameslist"))
+            currentlist.push(game)
+            localStorage.setItem("gameslist", JSON.stringify(currentlist))
+        }*/
+
+        document.getElementById("result").style.display = "none"
+
+        let resetrequested = false
+
+        function MakeTable() { /* Code adapted from https://www.youtube.com/watch?v=yk2DibLBhzc */
+            let table = document.querySelector("#gamestable")
+            const row = document.createElement("tr")
+            if (!resetrequested) {
+                for (let i = 0; i < games.length; i++) {
+                    row.innerHTML = `<tr>
+                        <td>${games[i]}</td>
+                    </tr>`
+                    table.appendChild(row)
+                }
+            }
+            else {
+                table.textContent = ""
+                resetrequested = false
+            }
         }
-    }
-    lbutton.addEventListener("click", OnClick)
-    rbutton.addEventListener("click", OnClick)
-</script>
+
+        function Reset() {
+            resetrequested = true
+            MakeTable()
+            games.length = 0
+            /*localStorage.clear()*/
+            ButtonVis()
+        }
+
+        function AddtoList(e) {
+            if (e.keyCode === 13) {
+                if (e.target.value !== "") {
+                    if (OnSteam()) {
+                        games.push(e.target.value)
+                        MakeTable()
+                        /*SaveGames(e.target.value)*/
+                        e.target.value = ""
+                        ButtonVis()
+                    }
+                    else {
+                        alert(e.target.value + " is not in our database")
+                        e.target.value = ""
+                    }
+                }
+                return false
+            }
+        }
+
+        function ButtonVis() {
+            let visibility = document.getElementById("result")
+            if (games.length >= 3) {
+                visibility.style.display = "block"
+            }
+            else {
+                visibility.style.display = "none"
+            }
+        }
+        function OnSteam() {
+            return true
+        }
+    </script>
 </body>
 </html>

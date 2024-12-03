@@ -1,9 +1,11 @@
 body {
+  position: relative;
   padding: 0;
   margin: 0;
   height: 100vh;
+  width: 100vw;
+  text-align: center;
   display: table;
-  flex-direction: column;
   background: linear-gradient(#22203c, #090a12);
 }
 .nav {
@@ -36,10 +38,9 @@ body {
   border-radius: 20px;
   font-family: helvetica, sans-serif;
   cursor: pointer;
-  position: absolute;
-  top: 50vh;
-  left: 30vw;
-
+  position: relative;
+  top: 15vh;
+  right: 10vw;
   &:hover{
     transition-duration: 0.3s;
     background: #87717d;
@@ -54,9 +55,9 @@ body {
   border-radius: 20px;
   font-family: helvetica, sans-serif;
   cursor: pointer;
-  position: absolute;
-  top: 50vh;
-  left: 56vw;
+  position: relative;
+  top: 10vh;
+  left: 10vw;
 
   &:hover{
     transition-duration: 0.3s;
@@ -72,9 +73,8 @@ body {
   border-radius: 20px;
   font-family: helvetica, sans-serif;
   cursor: pointer;
-  position: absolute;
-  top: 27vh;
-  left: 41vw;
+  position: relative;
+  top: -6vh;
 
   &:hover{
     transition-duration: 0.3s;
@@ -90,9 +90,8 @@ body {
   border-radius: 20px;
   font-family: helvetica, sans-serif;
   cursor: pointer;
-  position: absolute;
-  top: 12vh;
-  left: 43vw;
+  position: relative;
+  top: 6vh;
 
   &:hover{
     transition-duration: 0.3s;
@@ -129,7 +128,7 @@ p {
   display: table;
   padding: 6px;
   background-color: #ffffff;
-  width: 50%;
+  width: 50vw;
   font-size: 20px;
   border-radius: 20px;
 }
@@ -137,7 +136,7 @@ table {
   margin: 0 auto;
   display: table;
   padding: 15px;
-  width: 48%;
+  width: 48vw;
   table-layout: fixed;
   border-spacing: 0 0;
   color: #ffffff;
@@ -145,15 +144,16 @@ table {
   font-size: 20px;
 }
 .recommend_box {
+  word-wrap: break-word;
   margin: auto;
   display: table;
   padding: 6px;
   position: relative;
-  top: 15%;
+  top: 15vh;
   background-color: #87717d;
   border: 7px solid #f0bbc2;
   border-radius: 20px;
-  width: 50%;
+  width: 50vw;
   table-layout: fixed;
   border-spacing: 0 0;
 }
@@ -166,7 +166,7 @@ table {
   border-top: 5px solid #ffffff;
   border-left: 5px solid #ffffff;
   transform: rotate(-45deg);
-  left: 19vw;
+  left: 17vw;
   top: 50vh;
 
   &:hover {
@@ -194,7 +194,7 @@ table {
   border-top: 5px solid #ffffff;
   border-left: 5px solid #ffffff;
   transform: rotate(135deg);
-  left: 78vw;
+  left: 80vw;
   top: 50vh;
 
   &:hover {
@@ -218,21 +218,11 @@ table {
   display: table;
   text-align: center;
 }
-.topgames {
-  margin: auto;
-  display: table;
-  padding: 6px;
-  position: relative;
-  top: 15%;
-  background-color: #87717d;
-  border: 7px solid #f0bbc2;
-  border-radius: 20px;
-  width: 50%;
-  table-layout: fixed;
-  border-spacing: 0 0;
-  color: #ffffff;
+.pagenum {
+  position: absolute;
+  top: 90vh;
+  left: 49vw;
   font-family: helvetica, sans-serif;
   font-size: 20px;
-  text-align: center;
+  font-weight: bold;
 }
-

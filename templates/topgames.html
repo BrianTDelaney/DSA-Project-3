@@ -18,7 +18,7 @@
     </a>
 </div>
 
-<div class="topgames" id="topgames">
+<div class="recommend_box">
     <h3 id="gamesintop"></h3>
 </div>
 
@@ -27,19 +27,22 @@
 <div class="right_button" id="rbutton">
 </div>
 
-<div class="pagenum" id="page">
+<div class="pagenum">
+    <p id="page"></p>
 </div>
 
 <script>
     const array = [["m", "m", "m", "m", "m", "m", "m", "m", "m", "m"],["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"],["l", "l", "l", "l", "l", "l", "l", "l", "l", "l"]]
     document.getElementById("lbutton").style.display = "none"
     let index = 0
+    let rank = 1
 
     const lbutton = document.getElementById("lbutton")
     const rbutton = document.getElementById("rbutton")
     function OnClick(e) {
         if (e.target.id === "lbutton") {
             index --
+            rank -= 20
             ArrowVis()
             DisplayTop()
         }
@@ -51,8 +54,10 @@
     }
     function DisplayTop() {
         document.getElementById("gamesintop").innerHTML = ""
+        document.getElementById("page").innerHTML = (index + 1) + " / " + array.length
         for (let i = 0; i < array[index].length; i++) {
-            document.getElementById("gamesintop").innerHTML += array[index][i] + "<br>"
+            document.getElementById("gamesintop").innerHTML += rank + ". " + array[index][i] + "<br>"
+            rank ++
         }
     }
 

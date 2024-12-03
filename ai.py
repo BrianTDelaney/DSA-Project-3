@@ -1,25 +1,31 @@
 from openai import OpenAI
 from dotenv import load_dotenv
+from graph import Graph
+import json
 import os
 
 load_dotenv()
+
+games = Graph()
+arrayGames = games.storeGames()
+formatted_json = json.dumps(arrayGames, indent=2)
 
 # from OpenAI documentation
 def generate_prompt(task_or_prompt: str):
     client = OpenAI()
     client.api_key = os.getenv("OPENAI_API_KEY")
     completion = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="chatgpt-4o-latest",
         messages=[
             {
                 "role": "system",
-                "content": "The following is a graph represented as an adjacency list: {serialized_graph} Give the user video game recommendations based on their description of the games they like, and make sure to choose the highest rated games. Do not choose the same games the user mentions. The graph is arranged so that the most similar games have are adjacent to each other.",
+                "content": f"Recommend games based strictly on this json formatted list that has games with their descriptions: {formatted_json} Give the user video game recommendations based on their description of the games they like, and make sure the game is not outside of the provided list. Do not choose the same games the user mentions. Also put a summarized version of the game's description from the list, so that 3 games can fit 200 tokens. Recommend 3 games if possible, and less if there are not many games that match the preferences. You are not allowed to recommend any games that are not in the list. Only select from the games listed above based on their descriptions. Do not invent or suggest games outside of the list under any circumstances.",
             },
             {
                 "role": "user",
                 "content": "Description of games I like:\n" + task_or_prompt,
             },
         ],
-        max_tokens=150
+        max_tokens=200
     )
     return completion.choices[0].message.content

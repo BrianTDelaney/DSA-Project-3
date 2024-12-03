@@ -119,5 +119,14 @@ class Graph:
                         "tags": game.traits}
                 recs[game.name] = info
         return recs
+    
+    def storeGames(self):
+        games = []
+        for game in self.nameMap.items():
+            name = game[0]
+            description = game[1].description
+            games.append((name, description))
+            
+        return games
 
 

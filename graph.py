@@ -30,11 +30,13 @@ class Graph:
                     if trait[0] != "name":
                         traitList.append(trait[1])  # Makes a list containing all relevant data for edge creation
                     if trait[0] == "appid":
-                        link = "https://steamspy.com/api.php?request=appdetails&appid=" + str(trait[1])
-                        response2 = requests.get(link)
+                        link1 = "https://steamspy.com/api.php?request=appdetails&appid=" + str(trait[1])
+                        response2 = requests.get(link1)
                         traitList.append(response2.json()["tags"])
-                        link = "https://store.steampowered.com/api/appdetails?appids=" + str(trait[1])
-                        response3 = requests.get(link)
+                        link2 = "https://store.steampowered.com/api/appdetails?appids=" + str(trait[1])
+                        response3 = requests.get(link2)
+                        if response3.json() is None or not response3.json()[str(trait[1])]["success"]:
+                            continue
                         description = response3.json()[str(trait[1])]["data"]["about_the_game"]
 
                 self.nameMap[game["name"]] = Node(game["name"], traitList, description)
@@ -46,7 +48,7 @@ class Graph:
             self):  # [NOT FINISHED] This function will be used to initialize the edges in the adjacency matrix
         for node in self.nameMap.values():
             for other in self.nameMap.values():
-                if node.name != other.name and self.compareNodes(node, other) >= 14.0 and node.name not in self.adjList[
+                if node.name != other.name and self.compareNodes(node, other) >= 11.0 and node.name not in self.adjList[
                     other.name]:
                     self.adjList[node.name].append(other.name)
                     self.adjList[other.name].append(node.name)
@@ -76,6 +78,11 @@ class Graph:
         for game in self.adjList[name]:
             print(game)
 
+    def getAdjacent(self, name):
+        adj = [game for game in self.adjList[name]]
+        adjGameObj = [self.nameMap[game] for game in adj]
+        return adj
+
     def serialize_graph(self):
         return json.dumps(self.adjList)
 
@@ -93,4 +100,24 @@ class Graph:
                 if v not in visited:
                     visited.add(v)
                     q.put(v)
+
+    def recommend(self, likedGames):
+        recs = {}
+        result = []
+        for game in likedGames:
+            adj = self.getAdjacent(game)
+            result += adj
+        for game in result:
+            present = False
+            for item in recs.keys():
+                if game.name == item:
+                    present = True
+                    recs[game.name]["frequency"] += 1
+            if not present:
+                info = {"description": game.description,
+                        "frequency": 0,
+                        "tags": game.tags}
+                recs[game.name] = info
+        return recs
+
 

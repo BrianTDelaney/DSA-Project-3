@@ -5,7 +5,7 @@
     <title>Recommender</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
-<body onload="Reset()"> <!-- for local storage integration uncomment onload="LoadGames()" and the commented js-->
+<body> <!-- for local storage integration uncomment onload="LoadGames()" and the commented js-->
 <div class="nav">
     <a href="http://127.0.0.1:5000/home">Home</a>
     <a class="onpage" href="http://127.0.0.1:5000/recommender">Recommender</a>
@@ -41,7 +41,14 @@
     <script>
         let games = []
 
-        function SaveGames(game) { /* Code adapted from https://www.youtube.com/watch?v=2hJ1rTANVnk */
+        function LoadGames() { //Code adapted from https://www.youtube.com/watch?v=2hJ1rTANVnk
+            if (localStorage.getItem("gameslist") != null) {
+                games = JSON.parse(localStorage.getItem("gameslist"))
+                MakeTable()
+            }
+        }
+
+        function SaveGames(game) { //Code adapted from https://www.youtube.com/watch?v=2hJ1rTANVnk
             if (localStorage.getItem("gameslist") == null) {
                 localStorage.setItem("gameslist", '[]')
             }
@@ -75,7 +82,7 @@
             resetrequested = true
             MakeTable()
             games.length = 0
-            localStorage.clear()
+            /*localStorage.clear()*/
             ButtonVis()
         }
 
@@ -84,8 +91,9 @@
                 if (e.target.value !== "") {
                     if (OnSteam()) {
                         games.push(e.target.value)
-                        MakeTable()
                         SaveGames(e.target.value)
+                        MakeTable()
+                        /*SaveGames(e.target.value)*/
                         e.target.value = ""
                         ButtonVis()
                     }

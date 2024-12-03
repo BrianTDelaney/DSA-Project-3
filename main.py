@@ -3,8 +3,8 @@ from ai import generate_prompt
 from heap import Heap
 
 games = Graph() # THIS CODE WILL TAKE A MINUTE TO RUN
-currentGame = games.nameMap["Fallout 4"]
-print(currentGame.description)
+input = ["Portal 2", "Half-Life 2", "Counter-Strike: Global Offensive"]
+print(games.recommend(input))
 # games.printAdjacent("Half-Life")
 
 # serialized_graph = games.serialize_graph()

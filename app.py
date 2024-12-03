@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from graph import Graph
 from heap import Heap
 import json
+from collections import OrderedDict
 
 app = Flask(__name__)
 gameGraph = None
@@ -25,9 +26,10 @@ def results():  # put application's code here
     if request.method == "POST":
         data = request.get_json()
         print(data)
-        data = data['Games']
+        data = data['data']
         global gameGraph
         result = gameGraph.recommend(data)
+        print(result)
         return render_template('results.html', data=result)
     else:
         return render_template('results.html')

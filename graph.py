@@ -81,7 +81,7 @@ class Graph:
     def getAdjacent(self, name):
         adj = [game for game in self.adjList[name]]
         adjGameObj = [self.nameMap[game] for game in adj]
-        return adj
+        return adjGameObj
 
     def serialize_graph(self):
         return json.dumps(self.adjList)
@@ -115,8 +115,8 @@ class Graph:
                     recs[game.name]["frequency"] += 1
             if not present:
                 info = {"description": game.description,
-                        "frequency": 0,
-                        "tags": game.tags}
+                        "frequency": 1,
+                        "tags": game.traits}
                 recs[game.name] = info
         return recs
 

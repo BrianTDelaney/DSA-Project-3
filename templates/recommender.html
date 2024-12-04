@@ -5,7 +5,7 @@
     <title>Recommender</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
-<body onload="Reset()">
+<body onload="Reset(); showMeTheMoney()">
 <div class="nav">
     <a href="http://127.0.0.1:5000/home">Home</a>
     <a class="onpage" href="http://127.0.0.1:5000/recommender">Recommender</a>
@@ -38,6 +38,10 @@
     </table>
     <script>
         let games = []
+        var result = {{data | safe}}
+        function showMeTheMoney(){
+            console.log(result)
+        }
 
         function SaveGames(game) { //Code adapted from https://www.youtube.com/watch?v=2hJ1rTANVnk
             if (localStorage.getItem("gameslist") == null) {
@@ -80,7 +84,7 @@
         function AddtoList(e) {
             if (e.keyCode === 13) {
                 if (e.target.value !== "") {
-                    if (OnSteam()) {
+                    if (OnSteam(e.target.value)) {
                         games.push(e.target.value)
                         SaveGames(e.target.value)
                         MakeTable()
@@ -105,8 +109,15 @@
                 visibility.style.display = "none"
             }
         }
-        function OnSteam() {
-            return true
+        function OnSteam(name) {
+            console.log(typeof result)
+            array = result
+            for (const index in array) {
+                if (array[index] === name) {
+                    return true
+                }
+            }
+            return false
         }
     </script>
 </body>

@@ -19,7 +19,7 @@ def generate_prompt(task_or_prompt: str):
         messages=[
             {
                 "role": "system",
-                "content": f"Recommend games based strictly on this json formatted list that has games with their descriptions: {formatted_json} Give the user video game recommendations based on their description of the games they like, and make sure the game is not outside of the provided list. Do not choose the same games the user mentions. Also put a summarized version of the game's description from the list, so that 3 games can fit 200 tokens. Recommend 3 games if possible, and less if there are not many games that match the preferences. You are not allowed to recommend any games that are not in the list. Only select from the games listed above based on their descriptions. Do not invent or suggest games outside of the list under any circumstances.",
+                "content": f"Recommend games based strictly on this json formatted list that has games with their descriptions: {formatted_json} Give the user video game recommendations based on their description of the games they like, and make sure the game is not outside of the provided list. Do not choose the same games the user mentions. Also do not put descriptions. Recommend 5 games if possible, and less if there are not many games that match the preferences. You are not allowed to recommend any games that are not in the list. Only select from the games listed above based on their descriptions. Do not invent or suggest games outside of the list under any circumstances.",
             },
             {
                 "role": "user",

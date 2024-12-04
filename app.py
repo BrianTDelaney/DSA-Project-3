@@ -6,11 +6,11 @@ from collections import OrderedDict
 
 app = Flask(__name__)
 gameGraph = None
+gameHeap = None
 
 @app.route('/')
 @app.route('/home')
 def home():  # put application's code here
-    print("BING")
     return render_template('home.html')
 
 @app.route('/recommender')
@@ -18,7 +18,9 @@ def recommender():  # put application's code here
     global gameGraph
     if gameGraph is None:
         gameGraph = Graph()
-    return render_template('recommender.html')
+    result = json.dumps(list(gameGraph.nameMap.keys()))
+    print(result)
+    return render_template('recommender.html', data=result)
 
 @app.route('/results', methods=["POST", "GET"])
 def results():  # put application's code here
@@ -29,6 +31,7 @@ def results():  # put application's code here
         data = data['data']
         global gameGraph
         result = gameGraph.recommend(data)
+        result = json.dumps(result)
         print(result)
         return render_template('results.html', data=result)
     else:
@@ -36,7 +39,13 @@ def results():  # put application's code here
 
 @app.route('/topgames')
 def topgames():  # put application's code here
-    return render_template('topgames.html')
+    global gameHeap
+    if gameHeap is None:
+        gameHeap = Heap()
+    result = gameHeap.heap
+    result = json.dumps(result)
+    print(result)
+    return render_template('topgames.html', data=result)
 
 if __name__ == '__main__':
     app.run(debug=True)

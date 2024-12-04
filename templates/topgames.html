@@ -5,7 +5,7 @@
     <title>Top Games</title>
   <link rel="stylesheet" href="../static/style.css">
 </head>
-<body onload="DisplayTop()">
+<body onload="DisplayTop(); showHeapData()">
 <div class="nav">
     <a href="http://127.0.0.1:5000/home">Home</a>
     <a href="http://127.0.0.1:5000/recommender">Recommender</a>
@@ -36,9 +36,14 @@
     document.getElementById("lbutton").style.display = "none"
     let index = 0
     let rank = 1
+    var result = {{data | safe}}
 
     const lbutton = document.getElementById("lbutton")
     const rbutton = document.getElementById("rbutton")
+
+    function showHeapData(){
+        console.log(result)
+    }
     function OnClick(e) {
         if (e.target.id === "lbutton") {
             index --

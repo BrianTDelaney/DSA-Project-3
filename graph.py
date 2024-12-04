@@ -22,35 +22,34 @@ class Graph:
     nameMap = {}  # Maps game names to a node object
 
     def __init__(self):
-        for pageNumber in range(0, 1):
-            print(pageNumber)
+        # for pageNumber in range(0, 1):
+        #     print(pageNumber)
             # response = requests.get("https://steamspy.com/api.php?request=all&page=" + str(pageNumber))
-            response = requests.get("https://steamspy.com/api.php?request=top100forever")
-            for game in response.json().values():  # Iterates through data
-                traitList = []
-                description = ""
-                tagline = ""
-                for trait in game.items():
-                    if trait[0] != "name":
-                        traitList.append(trait[1])  # Makes a list containing all relevant data for edge creation
-                    if trait[0] == "appid":
-                        link1 = "https://steamspy.com/api.php?request=appdetails&appid=" + str(trait[1])
-                        response2 = requests.get(link1)
-                        traitList.append(response2.json()["tags"])
-                        link2 = "https://store.steampowered.com/api/appdetails?appids=" + str(trait[1])
-                        response3 = requests.get(link2)
-                        if response3.json() is None or not response3.json()[str(trait[1])]["success"]:
-                            continue
-                        description = response3.json()[str(trait[1])]["data"]["about_the_game"]
-                        tagline = response3.json()[str(trait[1])]["data"]["short_description"]
+        response = requests.get("https://steamspy.com/api.php?request=top100forever")
+        for game in response.json().values():  # Iterates through data
+            traitList = []
+            description = ""
+            tagline = ""
+            for trait in game.items():
+                if trait[0] != "name":
+                    traitList.append(trait[1])  # Makes a list containing all relevant data for edge creation
+                if trait[0] == "appid":
+                    link1 = "https://steamspy.com/api.php?request=appdetails&appid=" + str(trait[1])
+                    response2 = requests.get(link1)
+                    traitList.append(response2.json()["tags"])
+                    link2 = "https://store.steampowered.com/api/appdetails?appids=" + str(trait[1])
+                    response3 = requests.get(link2)
+                    if response3.json() is None or not response3.json()[str(trait[1])]["success"]:
+                        continue
+                    description = response3.json()[str(trait[1])]["data"]["about_the_game"]
+                    tagline = response3.json()[str(trait[1])]["data"]["short_description"]
 
-                self.nameMap[game["name"]] = Node(game["name"], traitList, description, tagline)
-                self.adjList[game["name"]] = []
+            self.nameMap[game["name"]] = Node(game["name"], traitList, description, tagline)
+            self.adjList[game["name"]] = []
         self.initializeMatrix()
         print("DONE")
 
-    def initializeMatrix(
-            self):  # [NOT FINISHED] This function will be used to initialize the edges in the adjacency matrix
+    def initializeMatrix(self):  # [NOT FINISHED] This function will be used to initialize the edges in the adjacency matrix
         for node in self.nameMap.values():
             for other in self.nameMap.values():
                 if node.name != other.name and self.compareNodes(node, other) >= 13.0 and node.name not in self.adjList[
@@ -112,14 +111,14 @@ class Graph:
         for game in likedGames:
             adj = self.getAdjacent(game)
             result += adj
-        aiOutput = generate_prompt(self, likedGames)
-        aiList = aiOutput.split(", ")
-        for game in aiList:
-            if game in self.nameMap.keys():
-                adj = self.getAdjacent(game)
-                result += adj
-            else:
-                continue
+        # aiOutput = generate_prompt(self, likedGames)
+        # aiList = aiOutput.split(", ")
+        # for game in aiList:
+        #     if game in self.nameMap.keys():
+        #         adj = self.getAdjacent(game)
+        #         result += adj
+        #     else:
+        #         continue
         for game in result:
             if game.name in likedGames:
                 continue

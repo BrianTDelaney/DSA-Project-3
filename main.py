@@ -8,7 +8,8 @@ from heap import Heap
 # games.printAdjacent("Half-Life")
 
 user_input = input("What type of games do you like?\n")
-print(generate_prompt(user_input))
+output = generate_prompt(user_input)
+print(output)
 
 # games = Heap()
 # games.bfs()a l

@@ -111,14 +111,14 @@ class Graph:
         for game in likedGames:
             adj = self.getAdjacent(game)
             result += adj
-        # aiOutput = generate_prompt(self, likedGames)
-        # aiList = aiOutput.split(", ")
-        # for game in aiList:
-        #     if game in self.nameMap.keys():
-        #         adj = self.getAdjacent(game)
-        #         result += adj
-        #     else:
-        #         continue
+        aiOutput = generate_prompt(self, likedGames)
+        aiList = aiOutput.split(", ")
+        for game in aiList:
+            if game in self.nameMap.keys():
+                adj = self.getAdjacent(game)
+                result += adj
+            else:
+                continue
         for game in result:
             if game.name in likedGames:
                 continue

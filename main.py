@@ -7,9 +7,9 @@ from heap import Heap
 # print(games.recommend(input))
 # games.printAdjacent("Half-Life")
 
-user_input = input("What type of games do you like?\n")
-output = generate_prompt(user_input)
-print(output)
+
+# output = generate_prompt(games, ["Fallout 4", "Red Dead Redemption 2", "Cyberpunk 2077"])
+# print(output)
 
 # games = Heap()
 # games.bfs()a l

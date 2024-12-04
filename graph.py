@@ -1,6 +1,7 @@
 import requests
 import json
 from queue import Queue
+from ai import generate_prompt
 
 
 class Node:
@@ -52,7 +53,7 @@ class Graph:
             self):  # [NOT FINISHED] This function will be used to initialize the edges in the adjacency matrix
         for node in self.nameMap.values():
             for other in self.nameMap.values():
-                if node.name != other.name and self.compareNodes(node, other) >= 12.0 and node.name not in self.adjList[
+                if node.name != other.name and self.compareNodes(node, other) >= 13.0 and node.name not in self.adjList[
                     other.name]:
                     self.adjList[node.name].append(other.name)
                     self.adjList[other.name].append(node.name)
@@ -111,6 +112,14 @@ class Graph:
         for game in likedGames:
             adj = self.getAdjacent(game)
             result += adj
+        aiOutput = generate_prompt(self, likedGames)
+        aiList = aiOutput.split(", ")
+        for game in aiList:
+            if game in self.nameMap.keys():
+                adj = self.getAdjacent(game)
+                result += adj
+            else:
+                continue
         for game in result:
             if game.name in likedGames:
                 continue
@@ -124,6 +133,12 @@ class Graph:
                         "frequency": 1,
                         "tags": game.traits}
                 recs[game.name] = info
+        # gameFrq = []
+        # for gameName in recs.keys():
+        #     gameFrq.append((recs[gameName]['frequency'], gameName))
+        # sortedRecs = {}
+        # for pair in gameFrq:
+        #     sortedRecs[pair[1]] = recs[pair[1]]
         return recs
     
     def storeGames(self):

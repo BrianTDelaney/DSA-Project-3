@@ -1,19 +1,19 @@
 from openai import OpenAI
 from dotenv import load_dotenv
-from graph import Graph
 import json
 import os
 
 load_dotenv()
 
-games = Graph()
-arrayGames = games.storeGames()
-formatted_json = json.dumps(arrayGames, indent=2)
-
 # from OpenAI documentation
-def generate_prompt(task_or_prompt: str):
+def generate_prompt(games, likedGames):
     client = OpenAI()
     client.api_key = os.getenv("OPENAI_API_KEY")
+    task_or_prompt = ""
+    for game in likedGames:
+        task_or_prompt += game + ", "
+    arrayGames = games.storeGames()
+    formatted_json = json.dumps(arrayGames, indent=2)
     completion = client.chat.completions.create(
         model="chatgpt-4o-latest",
         messages=[

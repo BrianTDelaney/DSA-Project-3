@@ -7,11 +7,13 @@ class Node:
     name = ""
     traits = []
     description = ""
+    tagline = ""
 
-    def __init__(self, n, t, d):
+    def __init__(self, n, t, d, tl):
         self.name = n
         self.traits = t
         self.description = d
+        self.tagline = tl
 
 
 class Graph:
@@ -26,6 +28,7 @@ class Graph:
             for game in response.json().values():  # Iterates through data
                 traitList = []
                 description = ""
+                tagline = ""
                 for trait in game.items():
                     if trait[0] != "name":
                         traitList.append(trait[1])  # Makes a list containing all relevant data for edge creation
@@ -38,8 +41,9 @@ class Graph:
                         if response3.json() is None or not response3.json()[str(trait[1])]["success"]:
                             continue
                         description = response3.json()[str(trait[1])]["data"]["about_the_game"]
+                        tagline = response3.json()[str(trait[1])]["data"]["short_description"]
 
-                self.nameMap[game["name"]] = Node(game["name"], traitList, description)
+                self.nameMap[game["name"]] = Node(game["name"], traitList, description, tagline)
                 self.adjList[game["name"]] = []
         self.initializeMatrix()
         print("DONE")
@@ -48,7 +52,7 @@ class Graph:
             self):  # [NOT FINISHED] This function will be used to initialize the edges in the adjacency matrix
         for node in self.nameMap.values():
             for other in self.nameMap.values():
-                if node.name != other.name and self.compareNodes(node, other) >= 11.0 and node.name not in self.adjList[
+                if node.name != other.name and self.compareNodes(node, other) >= 12.0 and node.name not in self.adjList[
                     other.name]:
                     self.adjList[node.name].append(other.name)
                     self.adjList[other.name].append(node.name)
@@ -108,13 +112,15 @@ class Graph:
             adj = self.getAdjacent(game)
             result += adj
         for game in result:
+            if game.name in likedGames:
+                continue
             present = False
             for item in recs.keys():
                 if game.name == item:
                     present = True
                     recs[game.name]["frequency"] += 1
             if not present:
-                info = {"description": game.description,
+                info = {"description": game.tagline,
                         "frequency": 1,
                         "tags": game.traits}
                 recs[game.name] = info

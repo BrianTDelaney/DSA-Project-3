@@ -17,7 +17,11 @@
         Return to homepage
     </a>
 </div>
-
+<br>
+<br>
+<br>
+<h3>Estimated Load Time:</h3>
+    <h3 id="length"></h3>
 <div class="recommend_box">
     <h3 id="gamesintop"></h3>
 </div>
@@ -36,6 +40,8 @@
     let index = 0
     let rank = 1
     var result = {{data | safe}}
+    let loadTime = {{time | safe}}
+    document.getElementById("length").innerHTML = loadTime["time"] + " seconds"
 
     const lbutton = document.getElementById("lbutton")
     const rbutton = document.getElementById("rbutton")

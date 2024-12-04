@@ -16,6 +16,9 @@
 <h3>Search our database for at least three games that you like and we will find</h3>
     <h3>recommendations based on your preferences</h3>
 <br>
+<h3>Estimated Load Time:</h3>
+    <h3 id="length"> seconds</h3>
+<br>
 <br>
 <br>
 <div class="resultbutton" id="result">
@@ -36,9 +39,13 @@
 
         </tbody>
     </table>
+</div class="sendButton" id="send">
+    <button type="button" onclick="sendChoices()">Send</button>
     <script>
         let games = []
-        var result = {{data | safe}}
+        let result = {{data | safe}}
+        let loadTime = {{time | safe}}
+        document.getElementById("length").innerHTML = loadTime["time"]
         function showMeTheMoney(){
             console.log(result)
         }
@@ -119,6 +126,24 @@
             }
             return false
         }
+        function sendChoices(){
+            // var obj = new XMLHttpRequest()
+            // obj.open("POST", "http://ip:5000/results", true)
+            // obj.setRequestHeader("Content-Type","application/json")
+            // obj.send(JSON.stringify(games))
+            // $.post("/results", {javascript_data: JSON.stringify(games)}
+            if (localStorage.getItem("gameslist") != null) {
+                games = JSON.parse(localStorage.getItem("gameslist"))
+            }
+            console.log(games)
+            fetch('/recommender', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data: games})
+            })
+    }
     </script>
 </body>
 </html>

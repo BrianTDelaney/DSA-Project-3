@@ -15,3 +15,6 @@ How to run the code:
 
 Run the app.py file and click the link that gets outputted in the console.
 You will be directed to the website where you can then check out the features.
+
+You can go to the recommender and input at least three games from our database, then press the send button. Click on the link that appears to be taken to a list of recommendations that match your preferences.
+After viewing your recommendations you can return to the home screen and view the top-rated games in our database.
